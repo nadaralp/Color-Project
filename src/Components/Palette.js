@@ -7,8 +7,10 @@ export default class Palette extends Component {
     constructor(props) {
         super(props)
         this.onSlideChange = this.onSlideChange.bind(this);
+        this.changeForamt = this.changeForamt.bind(this);
         this.state = {
-            darkness: 500
+            darkness: 500,
+            value: 'hex'
         }
     }
 
@@ -19,17 +21,24 @@ export default class Palette extends Component {
         }))
     }
 
+    changeForamt(e) {
+        this.setState(state => ({
+            ...state,
+            value: e.target.value
+        }))
+    }
+
     render() {
-        const { darkness } = this.state
+        const { darkness, value } = this.state
         const { colors } = this.props.palette
 
         const colorBoxes = colors[darkness].map(((color, i) => (
-            <ColorBox key={i} background={color.hex} name={color.name} />
+            <ColorBox key={i} background={color[this.state.value]} name={color.name} />
         )))
         return (
             <div className="Palette">
                 {/* Navbar goes here */}
-                <Navbar level={darkness} darkness={darkness} onSlideChange={this.onSlideChange} />
+                <Navbar value={value} changeFormat={this.changeForamt} level={darkness} darkness={darkness} onSlideChange={this.onSlideChange} />
                 <div className="Palette-Colors">
                     {colorBoxes}
                 </div>

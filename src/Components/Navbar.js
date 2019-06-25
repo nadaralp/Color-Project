@@ -3,8 +3,10 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import '../styles/Palette.css';
 import '../styles/Navbar.css';
+import { Select, MenuItem } from '@material-ui/core';
 
-const Navbar = ({ darkness, onSlideChange, level }) => {
+const Navbar = ({ darkness, onSlideChange, level, changeFormat, value }) => {
+
     return (
         <nav className="Navbar">
             <div className="Logo">
@@ -15,6 +17,13 @@ const Navbar = ({ darkness, onSlideChange, level }) => {
                     <span>Level: {level}</span>
                     <Slider defaultValue={darkness} min={100} max={900} onChange={e => onSlideChange(e)} />
                 </div>
+            </div>
+            <div className="select-container">
+                <Select value={value} onChange={e => changeFormat(e)}>
+                    <MenuItem value="hex">HEX - #ffffff</MenuItem>
+                    <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
+                    <MenuItem value="rgba">RGB - rgba(255, 255, 255, 1.0)</MenuItem>
+                </Select>
             </div>
         </nav>
     )

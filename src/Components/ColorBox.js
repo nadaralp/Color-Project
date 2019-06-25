@@ -22,7 +22,7 @@ export default class ColorBox extends Component {
                 copied: false
             }))
         }, 1500)
-    }
+    };
 
     componentDidUpdate() {
         console.log(this.state.copied)

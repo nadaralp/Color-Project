@@ -34,6 +34,8 @@ const styles = {
 }
 
 const PaletteList = ({ palettes, classes }) => {
+
+
     return (
         <div className={classes.root}>
             <div className={classes.container}>
@@ -42,7 +44,9 @@ const PaletteList = ({ palettes, classes }) => {
                 </nav>
                 <div className={classes.palettes}>
                     {palettes.map((color, index) => (
-                        <MiniPalette {...color} />
+                        <MiniPalette
+                            {...color}
+                        />
                     ))}
 
                 </div>

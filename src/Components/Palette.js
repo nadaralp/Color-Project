@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import Navbar from './Navbar';
 import '../styles/Palette.css'
 
 export default class Palette extends Component {
@@ -30,9 +29,7 @@ export default class Palette extends Component {
         return (
             <div className="Palette">
                 {/* Navbar goes here */}
-                <div className="pallete-slider">
-                    <Slider defaultValue={darkness} min={100} max={900} onChange={e => this.onSlideChange(e)} />
-                </div>
+                <Navbar level={darkness} darkness={darkness} onSlideChange={this.onSlideChange} />
                 <div className="Palette-Colors">
                     {colorBoxes}
                 </div>

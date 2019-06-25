@@ -4,13 +4,14 @@ import { Select, MenuItem } from '@material-ui/core';
 import 'rc-slider/assets/index.css';
 import '../styles/Palette.css';
 import '../styles/Navbar.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ darkness, onSlideChange, level, changeFormat, value }) => {
 
     return (
         <nav className="Navbar">
             <div className="Logo">
-                <a href="!#">ColorPicker</a>
+                <Link to="/">ColorPicker</Link>
             </div>
             <div className="pallete-slider">
                 <div className="slider-container">

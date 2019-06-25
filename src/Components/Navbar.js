@@ -1,9 +1,9 @@
 import React from 'react';
 import Slider from 'rc-slider';
+import { Select, MenuItem } from '@material-ui/core';
 import 'rc-slider/assets/index.css';
 import '../styles/Palette.css';
 import '../styles/Navbar.css';
-import { Select, MenuItem } from '@material-ui/core';
 
 const Navbar = ({ darkness, onSlideChange, level, changeFormat, value }) => {
 

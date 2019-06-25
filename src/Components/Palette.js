@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
-import '../styles/Palette.css'
+import { Snackbar, Button } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import '../styles/Palette.css';
 
 export default class Palette extends Component {
     constructor(props) {
         super(props)
         this.onSlideChange = this.onSlideChange.bind(this);
         this.changeForamt = this.changeForamt.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.state = {
             darkness: 500,
-            value: 'hex'
+            value: 'hex',
+            open: false
         }
     }
 
@@ -24,7 +29,21 @@ export default class Palette extends Component {
     changeForamt(e) {
         this.setState(state => ({
             ...state,
-            value: e.target.value
+            value: e.target.value,
+            open: true
+        }));
+        setTimeout(() => {
+            this.setState(state => ({
+                ...state,
+                open: false
+            }))
+        }, 3000);
+    }
+
+    handleClose() {
+        this.setState(state => ({
+            ...state,
+            open: false
         }))
     }
 
@@ -43,7 +62,27 @@ export default class Palette extends Component {
                     {colorBoxes}
                 </div>
 
+                <Snackbar
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    open={this.state.open}
+                    autoHideDuration={3000}
+                    onClose={this.handleClose}
+                    message={<span id="message-id" >Format Changed to <span id="value-id">{value}</span></span>}
+                    ContentProps={{
+                        "aria-describedby": "message-id"
+                    }}
+                    action={[
+                        <IconButton
+                            aria-label="Close"
+                            color="inherit"
+                            key="close"
+                            onClick={this.handleClose}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    ]}
 
+                />
                 {/* Footer */}
             </div>
         )

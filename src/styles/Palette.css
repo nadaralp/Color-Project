@@ -5,3 +5,7 @@
 .Palette-Colors {
     height: 90%;
 }
+
+#value-id {
+    text-transform: uppercase;
+}

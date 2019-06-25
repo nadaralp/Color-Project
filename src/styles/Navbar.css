@@ -22,6 +22,11 @@
     font-family: "Roboto" , sans-serif;
 }
 
+.Navbar .select-container {
+    margin-left: auto;
+    padding: 20px;
+}
+
 .pallete-slider {
     display: inline-block;
     width: 300px;

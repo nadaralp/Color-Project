@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/Colorbox.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
+import { styled } from '@material-ui/styles';
 
 export default class ColorBox extends Component {
 
@@ -31,6 +33,13 @@ export default class ColorBox extends Component {
     render() {
         const { name, background } = this.props;
         const { copied } = this.state;
+        const StyledLink = styled(Link)({
+            textDecoration: 'none',
+            "&:visited, &:focus, &:active, &:link, &:hover": {
+                textDecoration: "none",
+                color: "inherit"
+            }
+        })
 
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
@@ -43,7 +52,7 @@ export default class ColorBox extends Component {
                         </div>
                         <button className="copy-button">Copy</button>
                     </div>
-                    <span className="see-more">More</span>
+                    <span className="see-more"> <StyledLink onClick={e => e.stopPropagation()} to="/">More</StyledLink></span>
                 </div>
             </CopyToClipboard>
         )

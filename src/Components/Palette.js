@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
-import '../styles/Palette.css'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import '../styles/Palette.css'
 
 export default class Palette extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class Palette extends Component {
     onSlideChange(v) {
         let nv = v + (100 - (v % 100));
         this.setState(state => ({
-            darkness: nv
+            darkness: nv <= 900 ? nv : 900
         }))
     }
 
@@ -30,10 +30,13 @@ export default class Palette extends Component {
         return (
             <div className="Palette">
                 {/* Navbar goes here */}
-                <Slider defaultValue={darkness} min={100} max={900} onChange={e => this.onSlideChange(e)} />
+                <div className="pallete-slider">
+                    <Slider defaultValue={darkness} min={100} max={900} onChange={e => this.onSlideChange(e)} />
+                </div>
                 <div className="Palette-Colors">
                     {colorBoxes}
                 </div>
+
 
                 {/* Footer */}
             </div>

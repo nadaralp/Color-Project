@@ -15,7 +15,7 @@ function App() {
     <Switch>
       <Route exact path="/" render={() => <PaletteList palettes={seedColors} />} />
       <Route exact path="/palette/:id" render={(routeProps) => <Palette palette={generatePalette(findPalette(routeProps.match.params.id))} />} />
-      <Route exact path="/palette/:paletteId/:colorId" render={() => <SingleColorPalette />} />
+      <Route exact path="/palette/:paletteId/:colorId" render={(routeProps) => <SingleColorPalette {...routeProps} palette={generatePalette(findPalette(routeProps.match.params.paletteId))} />} />
     </Switch>
     // <div >
     //   <Palette palette={generatePalette(seedColors[2])} />

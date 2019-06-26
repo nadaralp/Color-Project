@@ -58,7 +58,7 @@ export default class Palette extends Component {
         return (
             <div className="Palette">
                 {/* Navbar goes here */}
-                <Navbar value={value} changeFormat={this.changeForamt} level={darkness} darkness={darkness} onSlideChange={this.onSlideChange} />
+                <Navbar displaySlider value={value} changeFormat={this.changeForamt} level={darkness} darkness={darkness} onSlideChange={this.onSlideChange} />
                 <div className="Palette-Colors">
                     {colorBoxes}
                 </div>

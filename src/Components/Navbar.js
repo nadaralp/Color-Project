@@ -6,19 +6,24 @@ import '../styles/Palette.css';
 import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ darkness, onSlideChange, level, changeFormat, value }) => {
+const Navbar = (props) => {
+
+    const { darkness, onSlideChange, level, changeFormat, value, displaySlider } = props;
 
     return (
         <nav className="Navbar">
             <div className="Logo">
                 <Link to="/">ColorPicker</Link>
             </div>
-            <div className="pallete-slider">
-                <div className="slider-container">
-                    <span>Level: {level}</span>
-                    <Slider defaultValue={darkness} min={100} max={900} onChange={e => onSlideChange(e)} />
+            {
+                displaySlider &&
+                <div className="pallete-slider">
+                    <div className="slider-container">
+                        <span>Level: {level}</span>
+                        <Slider defaultValue={darkness} min={100} max={900} onChange={e => onSlideChange(e)} />
+                    </div>
                 </div>
-            </div>
+            }
             <div className="select-container">
                 <Select value={value} onChange={e => changeFormat(e)}>
                     <MenuItem value="hex">HEX - #ffffff</MenuItem>

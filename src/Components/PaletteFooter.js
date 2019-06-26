@@ -1,6 +1,9 @@
 import React from 'react'
 
-const PaletteFooter = ({ name, emoji }) => {
+const PaletteFooter = (props) => {
+
+    const { name, emoji } = props;
+
     return (
         <footer style={{
             display: "flex",

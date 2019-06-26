@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
-import { Snackbar, Button } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import '../styles/Palette.css';
 
 export default class Palette extends Component {
@@ -49,11 +46,11 @@ export default class Palette extends Component {
     }
 
     render() {
-        const { darkness, value } = this.state
+        const { darkness, value, open } = this.state
         const { colors, id } = this.props.palette
 
         const colorBoxes = colors[darkness].map(((color, i) => (
-            <ColorBox showLink paletteId={id} id={color.id} key={color.id} background={color[this.state.value]} name={color.name} />
+            <ColorBox renderer={false} showLink paletteId={id} id={color.id} key={color.id} background={color[this.state.value]} name={color.name} />
         )))
         return (
             <div className="Palette">
@@ -63,28 +60,7 @@ export default class Palette extends Component {
                     {colorBoxes}
                 </div>
 
-                <Snackbar
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                    open={this.state.open}
-                    autoHideDuration={3000}
-                    onClose={this.handleClose}
-                    message={<span id="message-id" >Format Changed to <span id="value-id">{value}</span></span>}
-                    ContentProps={{
-                        "aria-describedby": "message-id"
-                    }}
-                    action={[
-                        <IconButton
-                            aria-label="Close"
-                            color="inherit"
-                            key="close"
-                            onClick={this.handleClose}
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                    ]}
-
-                />
-                <PaletteFooter name={this.props.palette.paletteName} emoji={this.props.palette.emoji} />
+                <PaletteFooter handleClose={this.handleClose} value={value} open={open} name={this.props.palette.paletteName} emoji={this.props.palette.emoji} />
             </div>
         )
     }

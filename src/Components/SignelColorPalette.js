@@ -2,28 +2,38 @@ import React, { Component } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter'
+import { Link } from 'react-router-dom';
 
 export default class SignelColorPalette extends Component {
     constructor(props) {
         super(props)
         this.changeFormat = this.changeFormat.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.state = {
-            value: 'hex'
+            value: 'hex',
+            open: false
         }
     }
 
     changeFormat(e) {
         this.setState(state => ({
             ...state,
-            value: e.target.value
+            value: e.target.value,
+            open: true
+        }))
+    }
+
+    handleClose() {
+        this.setState(state => ({
+            ...state,
+            open: false
         }))
     }
 
     render() {
         const { palette: { colors, emoji, paletteName }, match: { params } } = this.props;
-        const { value } = this.state;
+        const { value, open } = this.state;
         const colorName = params.colorId.toUpperCase();
-
 
         const generatePaletteColors = (shades) => {
             const shadesOfId = [];
@@ -33,7 +43,7 @@ export default class SignelColorPalette extends Component {
             return shadesOfId;
         };
         const paletteColors = generatePaletteColors(colors);
-        const colorBoxes = paletteColors.map(color => <ColorBox background={color[value]} showLink={false} id={color.id} name={color.name} color={color.hex} />)
+        const colorBoxes = paletteColors.map(color => <ColorBox renderer={"SingleColorPalette"} background={color[value]} showLink={false} id={color.id} name={color.name} color={color.hex} />)
         return (
             <React.Fragment>
                 <Navbar changeFormat={this.changeFormat} value={value} displaySlider={false} />
@@ -41,7 +51,7 @@ export default class SignelColorPalette extends Component {
                     <div className="Palette-Colors">
                         {colorBoxes}
                     </div>
-                    <PaletteFooter name={colorName} emoji={emoji} />
+                    <PaletteFooter open={open} handleClose={this.handleClose} value={value} name={colorName} emoji={emoji} />
                 </div>
             </React.Fragment>
 

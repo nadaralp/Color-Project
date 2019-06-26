@@ -9,6 +9,12 @@
     height: 90%;
 }
 
+.Last-Box {
+    background: black;
+    height: auto;
+    width: auto;
+}
+
 #value-id {
     text-transform: uppercase;
 }

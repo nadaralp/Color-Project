@@ -31,7 +31,8 @@ export default class ColorBox extends Component {
     }
 
     render() {
-        const { name, background, paletteId, id } = this.props;
+        const { name, background, paletteId, id, renderer } = this.props;
+        console.log(background);
         const { copied } = this.state;
         const StyledLink = styled(Link)({
             textDecoration: 'none',
@@ -43,7 +44,7 @@ export default class ColorBox extends Component {
 
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
-                <div style={{ background }} className="ColorBox">
+                <div style={{ background }} className={`ColorBox ${renderer && renderer}`}>
                     <div className={`copy-overlay ${copied && 'show'}`} style={{ background }}></div>
                     <div className={`copy-message ${copied && 'show'}`}><h1>Copied</h1><p>{background}</p></div>
                     <div className="copy-container">

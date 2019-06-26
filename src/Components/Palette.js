@@ -50,10 +50,10 @@ export default class Palette extends Component {
 
     render() {
         const { darkness, value } = this.state
-        const { colors } = this.props.palette
+        const { colors, id } = this.props.palette
 
         const colorBoxes = colors[darkness].map(((color, i) => (
-            <ColorBox key={color.id} background={color[this.state.value]} name={color.name} />
+            <ColorBox paletteId={id} id={color.id} key={color.id} background={color[this.state.value]} name={color.name} />
         )))
         return (
             <div className="Palette">

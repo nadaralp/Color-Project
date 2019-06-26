@@ -27,11 +27,11 @@ export default class ColorBox extends Component {
     };
 
     componentDidUpdate() {
-        console.log(this.state.copied)
+        console.log(this.props)
     }
 
     render() {
-        const { name, background } = this.props;
+        const { name, background, paletteId, id } = this.props;
         const { copied } = this.state;
         const StyledLink = styled(Link)({
             textDecoration: 'none',
@@ -52,7 +52,7 @@ export default class ColorBox extends Component {
                         </div>
                         <button className="copy-button">Copy</button>
                     </div>
-                    <span className="see-more"> <StyledLink onClick={e => e.stopPropagation()} to="/">More</StyledLink></span>
+                    <span className="see-more"> <StyledLink onClick={e => e.stopPropagation()} to={`/palette/${paletteId}/${id}`} >More</StyledLink></span>
                 </div>
             </CopyToClipboard>
         )

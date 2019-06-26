@@ -45,6 +45,32 @@ const styles = {
             opacity: '1',
             transition: '0.5s',
         }
+    },
+    boxContent: {
+        position: 'absolute',
+        bottom: '0px',
+        left: '0px',
+        width: '100%',
+        padding: '10px',
+        boxSizing: 'border-box',
+        color: 'black',
+        letterSpacing: '1px',
+        textTransform: 'uppercase',
+        fontSize: '12px',
+    },
+    copyOverlay: {
+        opacity: '0',
+        zIndex: '20',
+        width: '100%',
+        height: '100%',
+        transition: 'transform 0.5s ease-out'
+    },
+    showOverlay: {
+        opacity: '1',
+        transform: 'scale(50)',
+        zIndex: '30',
+        position: 'absolute',
+        overflow: 'hidden'
     }
 }
 
@@ -85,10 +111,10 @@ class ColorBox extends Component {
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
                 <div style={{ background }} className="ColorBox">
-                    <div className={`copy-overlay ${copied && 'show'}`} style={{ background }}></div>
+                    <div className={`${classes.copyOverlay} ${copied && classes.showOverlay}`} style={{ background }}></div>
                     <div className={`copy-message ${copied && 'show'}`}><h1>Copied</h1><p className={classes.darkenText}>{background}</p></div>
-                    <div className="copy-container">
-                        <div className="box-content">
+                    <div >
+                        <div className={classes.boxContent}>
                             <span className={classes.darkenText}>{name}</span>
                         </div>
                         <button className={classes.copyButton}>Copy</button>

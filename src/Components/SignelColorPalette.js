@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter'
 import { Link } from 'react-router-dom';
 
+
 export default class SignelColorPalette extends Component {
     constructor(props) {
         super(props)
@@ -43,13 +44,16 @@ export default class SignelColorPalette extends Component {
             return shadesOfId;
         };
         const paletteColors = generatePaletteColors(colors);
-        const colorBoxes = paletteColors.map(color => <ColorBox renderer={"SingleColorPalette"} background={color[value]} showLink={false} id={color.id} name={color.name} color={color.hex} />)
+        const colorBoxes = paletteColors.map((color, index) => <ColorBox key={index} background={color[value]} showLink={false} id={color.id} name={color.name} color={color.hex} />)
         return (
             <React.Fragment>
                 <Navbar changeFormat={this.changeFormat} value={value} displaySlider={false} />
-                <div className="Palette">
+                <div className="SingleColorPalette Palette">
                     <div className="Palette-Colors">
                         {colorBoxes}
+                        <div className="go-back ColorBox">
+                            <Link to={`/palette/${params.paletteId}`} className="back-button">GO BACK</Link>
+                        </div>
                     </div>
                     <PaletteFooter open={open} handleClose={this.handleClose} value={value} name={colorName} emoji={emoji} />
                 </div>

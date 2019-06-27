@@ -5,6 +5,35 @@ import 'rc-slider/assets/index.css';
 import '../styles/Palette.css';
 import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
+
+const styles = {
+    Navbar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifContent: 'flex-start',
+        height: '6vh',
+    },
+    Logo: {
+        marginRight: '15px',
+        padding: '0 13px',
+        fontSize: '22px',
+        background: '#eceff1',
+        fontFamily: "Roboto",
+        height: '100 %',
+        display: 'flex',
+        "& a": {
+            textDecoration: 'none',
+            alignSelf: 'center',
+            color: 'black',
+            fontFamily: '"Roboto", sans - serif',
+        }
+    }
+    //     Navbar.select - container {
+    //     margin - left: auto;
+    //     padding: 20px;
+    // }
+}
 
 const Navbar = (props) => {
 
@@ -35,4 +64,4 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar
+export default withStyles(styles)(Navbar);

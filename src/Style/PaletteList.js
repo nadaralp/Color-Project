@@ -17,7 +17,8 @@ export default {
         display: "flex",
         width: "100%",
         justifyContent: "space-between",
-        color: "white"
+        color: "white",
+        alignItems: 'baseline',
     },
     palettes: {
         boxSizing: "border-box",
@@ -25,5 +26,7 @@ export default {
         display: "grid",
         gridTemplateColumns: "33% 33% 33%",
         gridGap: "1%"
+    },
+    button: {
     }
 }

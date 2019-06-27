@@ -27,7 +27,7 @@ const PaletteFooter = (props) => {
                 open={open}
                 autoHideDuration={3000}
                 onClose={handleClose}
-                message={<span id="message-id" >Format Changed to <span id="value-id">{value}</span></span>}
+                message={<span id="message-id" >Format Changed to <span styles={{ textTransform: 'uppercase' }}>{value}</span></span>}
                 ContentProps={{
                     "aria-describedby": "message-id"
                 }}

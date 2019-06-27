@@ -71,6 +71,15 @@ const styles = {
         zIndex: '30',
         position: 'absolute',
         overflow: 'hidden'
+    },
+    colorBox: {
+        width: '20%',
+        height: props => props.height ? "50%" : '25%',
+        margin: '0 auto',
+        display: 'inline-block',
+        position: 'relative',
+        cursor: 'pointer',
+        marginBottom: '-4px'
     }
 }
 
@@ -110,7 +119,7 @@ class ColorBox extends Component {
 
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
-                <div style={{ background }} className="ColorBox">
+                <div style={{ background }} className={classes.colorBox}>
                     <div className={`${classes.copyOverlay} ${copied && classes.showOverlay}`} style={{ background }}></div>
                     <div className={`copy-message ${copied && 'show'}`}><h1>Copied</h1><p className={classes.darkenText}>{background}</p></div>
                     <div >

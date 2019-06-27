@@ -9,18 +9,26 @@ const styles = (theme => ({
         display: 'inline-block',
         cursor: 'pointer',
         position: 'relative',
-        marginBottom: '-4.4px'
+        marginBottom: '-4.4px',
+        "& span": {
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            padding: '.4rem',
+            fontSize: '12px',
+            color: '#fff'
+        }
     }
 }));
 
 const DraggableColorBox = (props) => {
-    const { classes } = props;
+    const { classes, name } = props;
     const { color } = props;
     console.log(props);
 
     return (
         <div className={classes.root}>
-            {color}
+            <span>{name}</span>
         </div>
     )
 }

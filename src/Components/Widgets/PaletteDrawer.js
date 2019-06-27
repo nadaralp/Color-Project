@@ -14,6 +14,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Button } from '@material-ui/core';
 import { ChromePicker } from 'react-color';
 import DraggableColorBox from '../DraggableColorBox';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const drawerWidth = 350;
 
@@ -79,7 +80,9 @@ export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [backgroundColor, setBackgroundColor] = useState('teal');
-    const [colors, setColors] = useState(["purple", "#548152"]);
+    const [colors, setColors] = useState([]);
+    const [colorName, setColorName] = useState("");
+    const [inputValue, setInputValue] = useState("");
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -89,11 +92,29 @@ export default function PersistentDrawerLeft() {
         setOpen(false);
     }
 
-    const addNewColor = (color) => setColors([...colors, color]);
+    const handleSubmit = e => {
+        e.preventDefault();
+        setColors([...colors, {
+            name: inputValue,
+            color: backgroundColor
+        }])
+        setInputValue('');
+
+    }
 
     useEffect(() => {
-        console.log(backgroundColor);
-    }, []);
+        console.log(colors)
+    }, [colors])
+
+    useEffect(() => {
+        ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
+            return colors.every(({ name }) => value.toLowerCase() !== name.toLowerCase());
+        });
+        ValidatorForm.addValidationRule('isUniqueColor', () => {
+            return colors.every(({ color }) => color !== backgroundColor);
+
+        });
+    }, [colors, backgroundColor])
 
     return (
         <div className={classes.root}>
@@ -141,7 +162,13 @@ export default function PersistentDrawerLeft() {
                     <Button variant="contained" color="primary" >Random Color</Button>
                 </div>
                 <ChromePicker onChangeComplete={(newColor) => setBackgroundColor(newColor.hex)} color={backgroundColor} />
-                <Button onClick={() => setColors([...colors, backgroundColor])} variant="contained" style={{ backgroundColor }}>Add Color</Button>
+                <ValidatorForm onSubmit={e => handleSubmit(e)} >
+                    <TextValidator value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+                        validators={['required', 'isColorNameUnique', 'isUniqueColor']}
+                        errorMessages={['Enter a color name', 'Name is used', 'Color already used']}
+                    />
+                    <Button type="submit" variant="contained" style={{ backgroundColor }}>Add Color</Button>
+                </ValidatorForm>
             </Drawer>
             <main
                 className={clsx(classes.content, {
@@ -150,7 +177,7 @@ export default function PersistentDrawerLeft() {
             >
                 <div className={classes.drawerHeader} />
                 {
-                    colors.map((color, index) => <DraggableColorBox key={index} backgroundColor={color} />)
+                    colors.map((color, index) => <DraggableColorBox key={index} backgroundColor={color.color} name={color.name} />)
                 }
 
             </main>

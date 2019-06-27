@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PaletteDrawer from './Widgets/PaletteDrawer';
 
-export default class NewPaletteForm extends Component {
+class NewPaletteForm extends Component {
     render() {
         return (
             <div>
-                <h1>New Palette Form</h1>
+                <PaletteDrawer />
             </div>
         )
     }
 }
+
+export default NewPaletteForm;

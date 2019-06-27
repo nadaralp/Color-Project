@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -76,6 +76,8 @@ export default function PersistentDrawerLeft() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [backgroundColor, setBackgroundColor] = useState('teal');
+    const [colors, setColors] = useState(["purple", "#548152"]);
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -84,6 +86,12 @@ export default function PersistentDrawerLeft() {
     function handleDrawerClose() {
         setOpen(false);
     }
+
+    const addNewColor = (color) => setColors([...colors, color]);
+
+    useEffect(() => {
+        console.log(backgroundColor);
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -130,8 +138,8 @@ export default function PersistentDrawerLeft() {
                     <Button variant="contained" color="secondary" >Clear Palette</Button>
                     <Button variant="contained" color="primary" >Random Color</Button>
                 </div>
-                <ChromePicker onChangeComplete={(newColor) => console.log(newColor)} color="purple" />
-                <Button variant="contained" color="primary" >Add Color</Button>
+                <ChromePicker onChangeComplete={(newColor) => setBackgroundColor(newColor.hex)} color={backgroundColor} />
+                <Button onClick={() => setColors([...colors, backgroundColor])} variant="contained" style={{ backgroundColor }}>Add Color</Button>
             </Drawer>
             <main
                 className={clsx(classes.content, {
@@ -139,6 +147,9 @@ export default function PersistentDrawerLeft() {
                 })}
             >
                 <div className={classes.drawerHeader} />
+                {
+                    colors.map(color => <div style={{ background: color, height: '100%', width: '25%', display: 'inline-block' }}>{color}</div>)
+                }
 
             </main>
         </div>

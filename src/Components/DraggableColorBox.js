@@ -24,7 +24,6 @@ const styles = (theme => ({
 const DraggableColorBox = (props) => {
     const { classes, name } = props;
     const { color } = props;
-    console.log(props);
 
     return (
         <div className={classes.root}>

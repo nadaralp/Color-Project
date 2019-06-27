@@ -15,6 +15,7 @@ import { Button } from '@material-ui/core';
 import { ChromePicker } from 'react-color';
 import DraggableColorBox from '../DraggableColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Icon from '@material-ui/core/Icon';
 
 const drawerWidth = 350;
 
@@ -75,14 +76,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
+    const { savePalette } = props;
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [backgroundColor, setBackgroundColor] = useState('teal');
     const [colors, setColors] = useState([]);
-    const [colorName, setColorName] = useState("");
     const [inputValue, setInputValue] = useState("");
+
+    function savePaletteFully() {
+        console.log('hi')
+    }
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -121,6 +126,7 @@ export default function PersistentDrawerLeft() {
             <CssBaseline />
             <AppBar
                 position="fixed"
+                color="default"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
@@ -137,7 +143,12 @@ export default function PersistentDrawerLeft() {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Persistent drawer
-          </Typography>
+                        <Button variant="contained" color="primary" className={classes.button}
+                            onClick={savePaletteFully}
+                        >
+                            <Icon>add_circle</Icon>  Save Palette
+                        </Button>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <Drawer

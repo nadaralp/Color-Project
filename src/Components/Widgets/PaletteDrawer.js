@@ -13,6 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Button } from '@material-ui/core';
 import { ChromePicker } from 'react-color';
+import DraggableColorBox from '../DraggableColorBox';
 
 const drawerWidth = 350;
 
@@ -56,6 +57,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
+        height: ' calc( 100vh - 64px )',
         padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
@@ -148,7 +150,7 @@ export default function PersistentDrawerLeft() {
             >
                 <div className={classes.drawerHeader} />
                 {
-                    colors.map(color => <div style={{ background: color, height: '100%', width: '25%', display: 'inline-block' }}>{color}</div>)
+                    colors.map((color, index) => <DraggableColorBox key={index} backgroundColor={color} />)
                 }
 
             </main>

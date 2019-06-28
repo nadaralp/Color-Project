@@ -83,9 +83,11 @@ function PersistentDrawerLeft(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [backgroundColor, setBackgroundColor] = useState('teal');
-    const [colors, setColors] = useState([]);
+    const [colors, setColors] = useState(palettes[0].colors);
     const [inputValue, setInputValue] = useState("");
     const [newPaletteName, setNewPaletteName] = useState("");
+
+    const maxPaletteLength = 20;
 
     function savePaletteFully() {
         const newPalette = {
@@ -96,6 +98,15 @@ function PersistentDrawerLeft(props) {
         console.log(newPalette);
         savePalette(newPalette);
         history.push('/');
+    }
+
+    const clearPalette = () => {
+        setColors([]);
+    }
+
+    const generateRandomColor = () => {
+        const randomColor = palettes[Math.round(Math.random() * 9)].colors[Math.round(Math.random() * 18)]
+        setColors([...colors, randomColor])
     }
 
     const generateId = (paletteName) => paletteName.replace(/ /g, "-").toLowerCase();
@@ -197,8 +208,8 @@ function PersistentDrawerLeft(props) {
                 <Divider />
                 <Typography variant="h4" >Design Your Palette</Typography>
                 <div>
-                    <Button variant="contained" color="secondary" >Clear Palette</Button>
-                    <Button variant="contained" color="primary" >Random Color</Button>
+                    <Button onClick={e => clearPalette()} variant="contained" color="secondary" >Clear Palette</Button>
+                    <Button disabled={colors.length >= maxPaletteLength} onClick={e => generateRandomColor()} variant="contained" color="primary" >Random Color</Button>
                 </div>
                 <ChromePicker onChangeComplete={(newColor) => setBackgroundColor(newColor.hex)} color={backgroundColor} />
                 <ValidatorForm onSubmit={e => handleSubmit(e)} >
@@ -206,7 +217,7 @@ function PersistentDrawerLeft(props) {
                         validators={['required', 'isColorNameUnique', 'isUniqueColor']}
                         errorMessages={['Enter a color name', 'Name is used', 'Color already used']}
                     />
-                    <Button type="submit" variant="contained" style={{ backgroundColor }}>Add Color</Button>
+                    <Button disabled={colors.length >= maxPaletteLength} type="submit" variant="contained" style={{ backgroundColor }}>{colors.length >= maxPaletteLength ? 'Palette Full' : 'Add Color'}</Button>
                 </ValidatorForm>
             </Drawer>
             <main
@@ -219,8 +230,8 @@ function PersistentDrawerLeft(props) {
                     deleteButtonHandle={deleteButtonHandle}
                     colors={colors}
                     onSortEnd={onSortEnd}
-                     />
-                    
+                />
+
 
             </main>
         </div>

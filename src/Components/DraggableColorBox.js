@@ -40,14 +40,14 @@ const styles = (theme => ({
 }));
 
 const DraggableColorBox = (props) => {
-    const { classes, name } = props;
+    const { classes, name, deleteButtonHandle } = props;
     const { color } = props;
 
     return (
         <div className={classes.root}>
             <div className={classes.boxContent}>
                 <span>{name}</span>
-                <Icon className={classes.icon}>delete</Icon>
+                <Icon onClick={() => deleteButtonHandle(name)} className={classes.icon}>delete</Icon>
             </div>
 
         </div>

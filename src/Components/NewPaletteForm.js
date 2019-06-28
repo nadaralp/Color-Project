@@ -115,7 +115,11 @@ function PersistentDrawerLeft(props) {
         }])
         setInputValue('');
 
-    }
+    };
+
+    const deleteButtonHandle = (colorName) => {
+        setColors(colors.filter(({ name }) => colorName !== name))
+    };
 
     useEffect(() => {
         console.log(colors)
@@ -207,7 +211,7 @@ function PersistentDrawerLeft(props) {
             >
                 <div className={classes.drawerHeader} />
                 {
-                    colors.map((color, index) => <DraggableColorBox key={index} backgroundColor={color.color} name={color.name} />)
+                    colors.map((color, index) => <DraggableColorBox deleteButtonHandle={deleteButtonHandle} key={index} backgroundColor={color.color} name={color.name} />)
                 }
 
             </main>

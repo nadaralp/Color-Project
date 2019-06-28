@@ -77,21 +77,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function PersistentDrawerLeft(props) {
-    const { savePalette, history } = props;
+    const { savePalette, history, palettes } = props;
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [backgroundColor, setBackgroundColor] = useState('teal');
     const [colors, setColors] = useState([]);
-    const [colorName, setColorName] = useState("");
     const [inputValue, setInputValue] = useState("");
+    const [newPaletteName, setNewPaletteName] = useState("");
 
     function savePaletteFully() {
-        let placeholder = "New Test Palette" /**PLACEHOLDER*/
         const newPalette = {
-            paletteName: placeholder,
+            paletteName: newPaletteName,
             colors,
-            id: generateId(placeholder)
+            id: generateId(newPaletteName)
         };
         console.log(newPalette);
         savePalette(newPalette);
@@ -130,7 +129,11 @@ function PersistentDrawerLeft(props) {
             return colors.every(({ color }) => color !== backgroundColor);
 
         });
-    }, [colors, backgroundColor])
+        ValidatorForm.addValidationRule('uniqueName', value => {
+            console.log(palettes);
+            return palettes.every(({ paletteName }) => paletteName.toLowerCase() !== newPaletteName.toLowerCase())
+        })
+    }, [colors, backgroundColor, palettes, newPaletteName])
 
     return (
         <div className={classes.root}>
@@ -154,11 +157,16 @@ function PersistentDrawerLeft(props) {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Persistent drawer
-                        <Button variant="contained" color="primary" className={classes.button}
-                            onClick={e => savePaletteFully(colors)}
-                        >
-                            <Icon>add_circle</Icon>  Save Palette
+                        <ValidatorForm onSubmit={e => savePaletteFully()}>
+                            <TextValidator
+                                validators={['required', 'uniqueName']}
+                                errorMessages={['this field is required', 'Name is taken']}
+                                label="Palette Name" value={newPaletteName} onChange={(e) => setNewPaletteName(e.target.value)} />
+                            <Button type="submit" variant="contained" color="primary" className={classes.button}
+                            >
+                                <Icon>add_circle</Icon>  Save Palette
                         </Button>
+                        </ValidatorForm>
                     </Typography>
                 </Toolbar>
             </AppBar>

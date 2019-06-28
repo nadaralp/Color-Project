@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
+import { Icon } from '@material-ui/core'
 
 const styles = (theme => ({
     root: {
@@ -10,14 +11,31 @@ const styles = (theme => ({
         cursor: 'pointer',
         position: 'relative',
         marginBottom: '-4.4px',
-        "& span": {
-            position: 'absolute',
-            left: 0,
-            bottom: 0,
-            padding: '.4rem',
-            fontSize: '12px',
-            color: '#fff'
+        "&:hover span:last-of-type": {
+            color: 'white',
+            transform: 'scale(1.2)'
         }
+    },
+    boxContent: {
+        position: 'absolute',
+        bottom: '0px',
+        left: '0px',
+        width: '100%',
+        padding: '10px',
+        boxSizing: 'border-box',
+        color: 'black',
+        letterSpacing: '1px',
+        textTransform: 'uppercase',
+        fontSize: '12px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
+
+    },
+    icon: {
+        color: 'rgba(0, 0, 0, 0.5)',
+        transition: "all 0.3s ease-in-out",
+
     }
 }));
 
@@ -27,7 +45,11 @@ const DraggableColorBox = (props) => {
 
     return (
         <div className={classes.root}>
-            <span>{name}</span>
+            <div className={classes.boxContent}>
+                <span>{name}</span>
+                <Icon className={classes.icon}>delete</Icon>
+            </div>
+
         </div>
     )
 }

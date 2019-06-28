@@ -37,7 +37,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route exact path="/" render={() => <PaletteList palettes={palettes} />} />
-        <Route exact path="/palette/new" render={(routeProps) => <NewPaletteForm {...routeProps} savePalette={this.savePalette} />} />
+        <Route exact path="/palette/new" render={(routeProps) => <NewPaletteForm palettes={this.state.palettes} {...routeProps} savePalette={this.savePalette} />} />
         <Route exact path="/palette/:id" render={(routeProps) => <Palette palette={generatePalette(this.findPalette(routeProps.match.params.id))} />} />
         <Route exact path="/palette/:paletteId/:colorId" render={(routeProps) => <SingleColorPalette {...routeProps} palette={generatePalette(this.findPalette(routeProps.match.params.paletteId))} />} />
       </Switch>

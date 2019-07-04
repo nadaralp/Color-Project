@@ -176,7 +176,7 @@ function PersistentDrawerLeft(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Persistent drawer
+                        Persistent drawer (Still working on finishing the page)
                         <ValidatorForm onSubmit={e => savePaletteFully()}>
                             <TextValidator
                                 validators={['required', 'uniqueName']}
